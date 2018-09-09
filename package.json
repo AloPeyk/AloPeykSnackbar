@@ -1,0 +1,27 @@
+{
+  "name": "alopeyk-snackbar",
+  "version": "1.0.0",
+  "description": "snackbar plugin for react-native",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "postinstall": "rm -rf node_modules/alopeyk-snackbar/node_modules node_modules/alopeyk-snackbar/example",
+    "sync": "./sync.sh",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": "alopeyk",
+  "license": "",
+  "peerDependencies": {
+    "react-native": "^0.41.2",
+    "react-native-windows": "0.41.0-rc.1"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  }
+}

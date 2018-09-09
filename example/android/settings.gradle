@@ -1,0 +1,6 @@
+rootProject.name = 'example'
+
+include ':alopeyk-snackbar'
+project(':alopeyk-snackbar').projectDir = new File(rootProject.projectDir, '../node_modules/alopeyk-snackbar/android')
+
+include ':app'
