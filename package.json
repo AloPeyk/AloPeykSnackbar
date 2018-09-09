@@ -1,6 +1,6 @@
 {
   "name": "alopeyk-snackbar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "snackbar plugin for react-native",
   "main": "src/index.js",
   "types": "src/index.d.ts",
@@ -10,11 +10,16 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AloPeyk/AloPeykSnackbar.git"
+  },
   "keywords": [
     "react-native"
   ],
   "author": "alopeyk",
-  "license": "",
+  "license": "MIT",
+  "homepage": "https://github.com/AloPeyk/AloPeykSnackbar",
   "peerDependencies": {
     "react-native": "^0.41.2",
     "react-native-windows": "0.41.0-rc.1"
