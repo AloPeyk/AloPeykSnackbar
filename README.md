@@ -14,6 +14,9 @@ and then :
 
 `$ react-native link alopeyk-snackbar`
 
+#### Extra step for ios
+Since this repo is written in swift, you should copy `Test.swift` file to your project's XCode project navigator ➜ `[your project's name]` and then click on `copy items if needed` and press finish and then on the prompt select add bridge.
+
 ### Manual installation
 
 
