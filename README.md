@@ -31,7 +31,7 @@ Since this repo is written in swift, you should copy `Test.swift` file to your p
 #### Android
 
 1. Open up `android/app/src/main/java/[...]/MainApplication.java`
-  - Add `import com.reactlibrary.RNSnackbarPackage;` to the imports at the top of the file
+  - Add `import com.alopeyk.nativemodule.RNSnackbarPackage;` to the imports at the top of the file
   - Add `new RNSnackbarPackage()` to the list returned by the `getPackages()` method
 2. Append the following lines to `android/settings.gradle`:
   	```

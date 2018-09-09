@@ -1,5 +1,5 @@
 
-package com.reactlibrary;
+package com.alopeyk.nativemodule;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
