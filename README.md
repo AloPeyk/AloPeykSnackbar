@@ -2,7 +2,7 @@
 # alopeyk-snackbar
 Snackbar plugin for react-native. 
 
-![Alt Text](https://preview.ibb.co/gW7P79/sample.gif)
+![Alt Text](https://i.imgur.com/HSNH5Sh.gif)
 
 ## Features
 - Supports RTL/LTR directions
