@@ -1,5 +1,5 @@
 
-package com.alopeyk.nativemodule;
+package com.alopeyk.nativemodule.snackbar;
 
 import java.util.Arrays;
 import java.util.Collections;

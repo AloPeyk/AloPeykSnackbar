@@ -1,5 +1,5 @@
 
-package com.alopeyk.nativemodule;
+package com.alopeyk.nativemodule.snackbar;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
