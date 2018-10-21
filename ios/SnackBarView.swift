@@ -102,6 +102,7 @@ class SnackBarView: UIView {
   
   // MARK: - SnackBar Handlers
   class func show(withOptions options: NSDictionary?, callback: @escaping () -> Void) {
+    dismiss()
     let b = SnackBarView()
     b.pendingOptions = options
     b.pendingCallback = callback
@@ -110,12 +111,10 @@ class SnackBarView: UIView {
   }
 
   class func dismiss() {
-    DispatchQueue.main.async {
-        for snackBarView in stash {
-            snackBarView.hide()
-        }
-        stash.removeAll()
+    for snackBarView in stash {
+        snackBarView.hide()
     }
+    stash.removeAll()
   }
   
   // MARK: - Pops Up SnackBar
