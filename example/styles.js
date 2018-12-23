@@ -25,6 +25,13 @@ const styles = StyleSheet.create({
     margin: 10,
     color: 'red',
   },
+  position: {
+    fontSize: 16,
+    textAlign: 'center',
+    margin: 10,
+    color: '#666',
+    fontWeight: 'bold',
+  }
 });
 
 export default styles;

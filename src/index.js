@@ -12,6 +12,9 @@ type SnackBarOptions = {
   title: string,
   duration?: number,
   direction?: number,
+  barPosition?: number,
+  fontFamily?: string,
+  fontSize?: number,
   color?: string | number,
   backgroundColor?: string,
   action?: Action,
@@ -23,6 +26,8 @@ type ISnackBar = {
   LENGTH_INDEFINITE: number,
   DIRECTION_LTR: number,
   DIRECTION_RTL: number,
+  BAR_POSITION_TOP: number,
+  BAR_POSITION_TOP: number,
   show: (options: SnackBarOptions) => void,
   dismiss: () => void,
 };
@@ -34,7 +39,9 @@ const SnackBar: ISnackBar = {
   LENGTH_INDEFINITE: NativeModules.Snackbar.LENGTH_INDEFINITE,
   DIRECTION_LTR: NativeModules.Snackbar.DIRECTION_LTR,
   DIRECTION_RTL: NativeModules.Snackbar.DIRECTION_RTL,
-
+  BAR_POSITION_TOP: NativeModules.Snackbar.BAR_POSITION_TOP,
+  BAR_POSITION_BOTTOM: NativeModules.Snackbar.BAR_POSITION_BOTTOM,
+  
   show(options: SnackBarOptions) {
     const onPressCallback = (options.action && options.action.onPress) || (() => {});
 
