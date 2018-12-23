@@ -26,7 +26,7 @@ type ISnackBar = {
   LENGTH_INDEFINITE: number,
   DIRECTION_LTR: number,
   DIRECTION_RTL: number,
-  BAR_POSITION_TOP: number,
+  BAR_POSITION_BOTTOM: number,
   BAR_POSITION_TOP: number,
   show: (options: SnackBarOptions) => void,
   dismiss: () => void,
