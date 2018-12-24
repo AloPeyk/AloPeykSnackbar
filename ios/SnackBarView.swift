@@ -98,14 +98,9 @@ class SnackBarView: UIView {
     }()
     
     // MARK: - Initializer
+    
     init() {
-        if barPosition == .top {
-            super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 48))
-            
-        } else {
-            super.init(frame: CGRect(x: 0, y: UIScreen.main.bounds.size.height - 48, width: UIScreen.main.bounds.size.width, height: 48))
-        }
-        configUI()
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -118,8 +113,19 @@ class SnackBarView: UIView {
         callback?()
     }
     
+    func configureFrame() {
+        if barPosition == .top {
+        frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 68)
+    
+        } else {
+        frame = CGRect(x: 0, y: UIScreen.main.bounds.size.height - 48, width: UIScreen.main.bounds.size.width, height: 48)
+        }
+        configUI()
+    }
+    
     // MARK: - SnackBar Handlers
     class func show(withOptions options: NSDictionary?, barPosition: SnackBarPosition, callback: @escaping () -> Void) {
+        
         dismiss()
         let b = SnackBarView()
         b.pendingOptions = options
@@ -214,6 +220,8 @@ extension SnackBarView {
             return
         }
         
+        configureFrame()
+        
         guard let pendingOptions = pendingOptions else { return }
         
         callback = pendingCallback
@@ -276,12 +284,21 @@ extension SnackBarView {
     
     // MARK: - Initialize Subviews
     fileprivate func configUI() {
-        let topMargin: CGFloat = 14
-        var bottomMargin = topMargin
         
-        if #available(iOS 11.0, *) {
-            if let window = keyWindow, window.safeAreaInsets.bottom > bottomMargin {
-                bottomMargin = window.safeAreaInsets.bottom
+        let topMargin: CGFloat
+        var bottomMargin: CGFloat
+        
+        if barPosition == .top {
+            topMargin = 34
+            bottomMargin = topMargin - 20
+        } else {
+            topMargin = 14
+            bottomMargin = topMargin
+            
+            if #available(iOS 11.0, *) {
+                if let window = keyWindow, window.safeAreaInsets.bottom > bottomMargin {
+                    bottomMargin = window.safeAreaInsets.bottom
+                }
             }
         }
         
