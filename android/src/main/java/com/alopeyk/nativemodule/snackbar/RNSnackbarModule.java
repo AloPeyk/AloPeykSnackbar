@@ -1,20 +1,26 @@
 
 package com.alopeyk.nativemodule.snackbar;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.alopeyk.nativemodule.snackbar.topsnackbar.TSnackbar;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
@@ -33,9 +39,11 @@ public class RNSnackbarModule extends ReactContextBaseJavaModule {
   private static final int BAR_POSITION_TOP = 2;
   private List<Snackbar> bottomActiveSnackbars = new ArrayList<>();
   private List<TSnackbar> topActiveSnackbars = new ArrayList<>();
+  private ReactApplicationContext reactContext;
 
   public RNSnackbarModule(ReactApplicationContext reactContext) {
     super(reactContext);
+    this.reactContext = reactContext;
   }
 
   @Override
@@ -186,12 +194,6 @@ public class RNSnackbarModule extends ReactContextBaseJavaModule {
     ViewCompat.setLayoutDirection(snackbar.getView(), layoutDirection);
     ViewCompat.setLayoutDirection(snackbarText, layoutDirection);
 
-
-//    View snackbarView = snackbar.getView();
-//    FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)snackbarView.getLayoutParams();
-//    params.gravity = Gravity.TOP;
-//    snackbarView.setLayoutParams(params);
-
     snackbar.show();
   }
 
@@ -199,17 +201,17 @@ public class RNSnackbarModule extends ReactContextBaseJavaModule {
   private void displayTopSnackbar(View view, ReadableMap options, final Callback callback, String title, int duration){
     int layoutDirection = options.hasKey("direction") ? options.getInt("direction") : ViewCompat.LAYOUT_DIRECTION_LTR;
     int textDirection = options.hasKey("direction") ? options.getInt("direction") == ViewCompat.LAYOUT_DIRECTION_LTR ? Gravity.LEFT : Gravity.RIGHT : Gravity.START;
-
     TSnackbar snackbar = TSnackbar.make(view, title, duration);
     topActiveSnackbars.add(snackbar);
 
-    TextView snackbarText = snackbar.getView().findViewById(R.id.snackbar_text);
-    TextView action = snackbar.getView().findViewById(R.id.snackbar_action);
+    View snackbarView = snackbar.getView();
+    TextView snackbarText = snackbarView.findViewById(R.id.snackbar_text);
+    TextView action = snackbarView.findViewById(R.id.snackbar_action);
 
 
     // Set the background color.
     if (options.hasKey("backgroundColor")) {
-      snackbar.getView().setBackgroundColor(options.getInt("backgroundColor"));
+      snackbarView.setBackgroundColor(options.getInt("backgroundColor"));
     }
 
     if (options.hasKey("action")) {
@@ -263,20 +265,57 @@ public class RNSnackbarModule extends ReactContextBaseJavaModule {
 
     snackbarText.setGravity(textDirection);
 
-    ViewCompat.setLayoutDirection(snackbar.getView(), layoutDirection);
+    ViewCompat.setLayoutDirection(snackbarView, layoutDirection);
     ViewCompat.setLayoutDirection(snackbarText, layoutDirection);
 
 
-//    View snackbarView = snackbar.getView();
-//    FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)snackbarView.getLayoutParams();
-//    params.gravity = Gravity.TOP;
-//    snackbarView.setLayoutParams(params);
+    if(isTranslucentStatusBar(reactContext)){
+      snackbarView.setPadding(
+              snackbarView.getPaddingLeft(),
+              snackbarView.getPaddingTop() + getStatusBarHeight(reactContext),
+              snackbarView.getPaddingRight(),
+              snackbarView.getPaddingBottom());
+    }
 
     snackbar.show();
   }
 
-  private void initStyle(View parent, TextView text, TextView action){
+  protected boolean isTranslucentStatusBar(ReactContext context)
+  {
+    return true;
+//    try{
+//      Window w = context.getCurrentActivity().getWindow();
+//      WindowManager.LayoutParams lp = w.getAttributes();
+//      int flags = lp.flags;
+//      // Here I'm comparing the binary value of Translucent Status Bar with flags in the window
+//      if ((flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) == WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) {
+//        Log.v("BRDF", "isTranslucentStatusBar : true");
+//        return true;
+//      }
+//    }catch (Exception e){
+//      Log.v("BRDF", "isTranslucentStatusBar Exception: " + e.getMessage());
+//    }
+//
+//    Log.v("BRDF", "isTranslucentStatusBar : false");
+//    return false;
+  }
 
+  private int getStatusBarHeight(ReactContext context){
+    Rect rectangle = new Rect();
+    int statusBarHeight = 0;
+    try{
+      Window window = context.getCurrentActivity().getWindow();
+      window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+      statusBarHeight = rectangle.top;
+//      int contentViewTop =
+//              window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
+//      int titleBarHeight= contentViewTop - statusBarHeight;
+//      Log.v("BRDF", "StatusBar Height= " + statusBarHeight + " , TitleBar Height = " + titleBarHeight);
+    }catch (Exception e){
+//      Log.v("BRDF", "getStatusBarHeight Exception: " + e.getMessage());
+    }
+
+    return statusBarHeight;
   }
 
   /**
