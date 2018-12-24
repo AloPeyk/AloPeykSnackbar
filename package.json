@@ -1,6 +1,6 @@
 {
   "name": "alopeyk-snackbar",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "snackbar plugin for react-native",
   "main": "src/index.js",
   "types": "src/index.d.ts",
