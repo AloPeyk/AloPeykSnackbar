@@ -13,6 +13,7 @@ type SnackBarOptions = {
   duration?: number,
   direction?: number,
   barPosition?: number,
+  maxLines?: number,
   fontFamily?: string,
   fontSize?: number,
   color?: string | number,
