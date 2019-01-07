@@ -161,6 +161,9 @@ public class RNSnackbarModule extends ReactContextBaseJavaModule {
       snackbar.setActionTextColor(actionDetails.getInt("color"));
     }
 
+    if(options.hasKey("maxLines")){
+      snackbarText.setMaxLines(options.getInt("maxLines"));
+    }
     // For older devices, explicitly set the text color; otherwise it may appear dark gray.
     // http://stackoverflow.com/a/31084530/763231
     if(options.hasKey("color")){
@@ -233,6 +236,10 @@ public class RNSnackbarModule extends ReactContextBaseJavaModule {
       if(actionDetails.hasKey("color")){
         snackbar.setActionTextColor(actionDetails.getInt("color"));
       }
+    }
+
+    if(options.hasKey("maxLines")){
+      snackbarText.setMaxLines(options.getInt("maxLines"));
     }
 
     // For older devices, explicitly set the text color; otherwise it may appear dark gray.

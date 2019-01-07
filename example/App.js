@@ -62,6 +62,19 @@ class Example extends Component {
 
         <TouchableOpacity
           onPress={() => Snackbar.show({
+            title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam. Libero justo laoreet sit amet. Bibendum at varius vel pharetra vel turpis nunc. Ac tortor dignissim convallis aenean et tortor at risus.',
+            duration: Snackbar.LENGTH_LONG,
+            maxLines: 5,
+            barPosition: this.state.barPosition,
+          })}
+        >
+          <Text style={styles.button}>
+            Simple Snackbar - multi lines
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => Snackbar.show({
             title: 'Please agree to this.',
             duration: Snackbar.LENGTH_INDEFINITE,
             barPosition: this.state.barPosition,
