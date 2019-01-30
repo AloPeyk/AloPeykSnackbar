@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DAF6EEC621445F7D00551DA9 /* SnackBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6EEC321445F7D00551DA9 /* SnackBarView.swift */; };
-		DAF6EEC721445F7D00551DA9 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF6EEC421445F7D00551DA9 /* Snackbar.swift */; };
-		DAF6EEC821445F7D00551DA9 /* SnackBarBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF6EEC521445F7D00551DA9 /* SnackBarBridge.m */; };
+		B3E7B58A1CC2AC0600A0062D /* Snackbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Snackbar.m */; };
+		CB2A90A22200A1E40040C8B1 /* iSnackBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A90A12200A1E40040C8B1 /* iSnackBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,10 +25,10 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNSnackbar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNSnackbar.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAF6EEC221445F7C00551DA9 /* RNSnackbar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNSnackbar-Bridging-Header.h"; sourceTree = "<group>"; };
-		DAF6EEC321445F7D00551DA9 /* SnackBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnackBarView.swift; sourceTree = "<group>"; };
-		DAF6EEC421445F7D00551DA9 /* Snackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
-		DAF6EEC521445F7D00551DA9 /* SnackBarBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnackBarBridge.m; sourceTree = "<group>"; };
+		B3E7B5881CC2AC0600A0062D /* Snackbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Snackbar.h; sourceTree = "<group>"; };
+		B3E7B5891CC2AC0600A0062D /* Snackbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snackbar.m; sourceTree = "<group>"; };
+		CB2A90A02200A1E40040C8B1 /* iSnackBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iSnackBar.h; sourceTree = "<group>"; };
+		CB2A90A12200A1E40040C8B1 /* iSnackBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iSnackBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,11 +53,11 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				DAF6EEC421445F7D00551DA9 /* Snackbar.swift */,
-				DAF6EEC521445F7D00551DA9 /* SnackBarBridge.m */,
-				DAF6EEC321445F7D00551DA9 /* SnackBarView.swift */,
+				B3E7B5881CC2AC0600A0062D /* Snackbar.h */,
+				B3E7B5891CC2AC0600A0062D /* Snackbar.m */,
+				CB2A90A02200A1E40040C8B1 /* iSnackBar.h */,
+				CB2A90A12200A1E40040C8B1 /* iSnackBar.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				DAF6EEC221445F7C00551DA9 /* RNSnackbar-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,7 +92,6 @@
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -119,9 +117,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAF6EEC721445F7D00551DA9 /* Snackbar.swift in Sources */,
-				DAF6EEC821445F7D00551DA9 /* SnackBarBridge.m in Sources */,
-				DAF6EEC621445F7D00551DA9 /* SnackBarView.swift in Sources */,
+				B3E7B58A1CC2AC0600A0062D /* Snackbar.m in Sources */,
+				CB2A90A22200A1E40040C8B1 /* iSnackBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,41 +209,32 @@
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNSnackbar;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "RNSnackbar-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNSnackbar;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "RNSnackbar-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
