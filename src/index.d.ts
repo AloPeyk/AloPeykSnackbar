@@ -58,6 +58,11 @@ interface SnackBarOptions {
    * Adds an actionable button to the snackbar on the right
    */
   action?: Action;
+
+/**
+* Position of snackbar
+*/
+position?: number;
 }
 
 /**
@@ -77,6 +82,10 @@ export const LENGTH_INDEFINITE: number;
 
 export const DIRECTION_LTR: number;
 export const DIRECTION_RTL: number;
+
+
+export const BAR_POSITION_BOTTOM: number;
+export const BAR_POSITION_TOP: number;
 
 /**
  * Shows a native Snackbar component.

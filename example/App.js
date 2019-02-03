@@ -6,16 +6,42 @@ import styles from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Example extends Component {
+  constructor(){
+    super();
+    this.state = {
+      barPosition: Snackbar.BAR_POSITION_BOTTOM,
+      barPosiotionTitle: "Position: Bottom",
+    }
+  }
+
+  toggleBarPosition(){
+    if(this.state.barPosition == Snackbar.BAR_POSITION_TOP){
+      this.setState({barPosition: Snackbar.BAR_POSITION_BOTTOM, barPosiotionTitle: "Position: Bottom",});
+    }else{
+      this.setState({barPosition: Snackbar.BAR_POSITION_TOP, barPosiotionTitle: "Position: Top",});
+    }
+  }
 
   render() {
+    
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
           Snackbar Examples
         </Text>
+        <View>
+          <TouchableOpacity
+            onPress={this.toggleBarPosition.bind(this)}
+          >
+            <Text style={styles.position}>{this.state.barPosiotionTitle}</Text>
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity
-          onPress={() => Snackbar.show({ title: 'Hello, World!' })}
+          onPress={() => Snackbar.show({ 
+            title: 'Hello, World!', 
+            barPosition: this.state.barPosition,
+            })}
         >
           <Text style={styles.button}>
             Simple Snackbar
@@ -26,6 +52,7 @@ class Example extends Component {
           onPress={() => Snackbar.show({
             title: 'Hello, World! How are you doing today? Enjoying the sun?! This should wrap to two lines.',
             duration: Snackbar.LENGTH_LONG,
+            barPosition: this.state.barPosition,
           })}
         >
           <Text style={styles.button}>
@@ -35,11 +62,30 @@ class Example extends Component {
 
         <TouchableOpacity
           onPress={() => Snackbar.show({
+            title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel fringilla est ullamcorper eget nulla facilisi etiam dignissim diam. Libero justo laoreet sit amet. Bibendum at varius vel pharetra vel turpis nunc. Ac tortor dignissim convallis aenean et tortor at risus.',
+            duration: Snackbar.LENGTH_LONG,
+            maxLines: 5,
+            barPosition: this.state.barPosition,
+          })}
+        >
+          <Text style={styles.button}>
+            Simple Snackbar - multi lines
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => Snackbar.show({
             title: 'Please agree to this.',
             duration: Snackbar.LENGTH_INDEFINITE,
+            barPosition: this.state.barPosition,
+            fontFamily: 'Roboto-Light',
+            fontSize: 14,
             action: {
               title: 'AGREE',
-              onPress: () => Snackbar.show({ title: 'Thank you!' }),
+              onPress: () => Snackbar.show({ 
+                title: 'Thank you!', 
+                barPosition: this.state.barPosition,
+                }),
               color: 'green',
             },
           })}
@@ -53,11 +99,15 @@ class Example extends Component {
           onPress={() => Snackbar.show({
             title: 'Please agree to this.',
             duration: Snackbar.LENGTH_INDEFINITE,
+            barPosition: this.state.barPosition,
             backgroundColor: 'silver',
             color: '#333',
             action: {
               title: 'AGREE',
-              onPress: () => Snackbar.show({ title: 'Thank you!' }),
+              onPress: () => Snackbar.show({ 
+                title: 'Thank you!',
+                barPosition: this.state.barPosition,
+                }),
               color: '#992222',
             },
           })}

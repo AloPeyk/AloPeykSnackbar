@@ -54,7 +54,9 @@ Snackbar.show({
 	duration: Snackbar.LENGTH_INDEFINITE,
 	backgroundColor: 'silver',
 	color: '#333',
-	direction: Snackbar.DIRECTION_RTL, // or Snackbar.DIRECTION_LTR
+	maxLines: 3, //Default: 2
+	barPosition: Snackbar.BAR_POSITION_TOP, //Default: Snackbar.BAR_POSITION_BOTTOM
+	direction: Snackbar.DIRECTION_RTL, //Default: Snackbar.DIRECTION_LTR
 	action: {
 		title: 'AGREE',
 		onPress: () => Snackbar.show({ title: 'Thank you!' }),
