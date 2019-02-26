@@ -184,14 +184,14 @@ static id selectionDelegate									=	nil;
 	[currentlyVisibleSnackbar setFrame:CGRectMake(0, -(80+additionalHeight), parentView.frame.size.width, 80+additionalHeight)];
 	[mMessageLabel setFrame:CGRectMake(8, 28+additionalHeight, currentlyVisibleSnackbar.frame.size.width - 16, 0)];
 	[mMessageLabel sizeToFit];
-    [mMessageLabel setFrame:CGRectMake(currentlyVisibleSnackbar.frame.size.width - mMessageLabel.frame.size.width - 8, mMessageLabel.frame.origin.y, mMessageLabel.frame.size.width, mMessageLabel.frame.size.height)];
+    [mMessageLabel setFrame:CGRectMake(currentlyVisibleSnackbar.frame.size.width - mMessageLabel.frame.size.width - 8, mMessageLabel.frame.origin.y + 4, mMessageLabel.frame.size.width, mMessageLabel.frame.size.height)];
 	[currentlyVisibleSnackbar setFrame:CGRectMake(0, -80, parentView.frame.size.width, CGRectGetMaxY(mMessageLabel.frame) + 28+additionalHeight)];
 	
 	long actionButtonYPosition			=	(currentlyVisibleSnackbar.frame.size.height / 2) - (mActionButton.frame.size.height / 2);
 	[mActionButton setFrame:CGRectMake(mActionButton.frame.origin.x, actionButtonYPosition, buttonWidth, mActionButton.frame.size.height)];
 
 	[UIView animateWithDuration:0.3 animations:^{
-		[currentlyVisibleSnackbar setFrame:CGRectMake(0, 0, parentView.frame.size.width, CGRectGetMaxY(mMessageLabel.frame) + 8)];
+		[currentlyVisibleSnackbar setFrame:CGRectMake(0, 0, parentView.frame.size.width, CGRectGetMaxY(mMessageLabel.frame) + 16)];
 	}];
     
     int finalDuration = 2;
