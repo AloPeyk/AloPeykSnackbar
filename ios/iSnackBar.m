@@ -102,63 +102,73 @@ static id selectionDelegate									=	nil;
             actionTitleColor:(UIColor *)actionTitleColor
                     delegate:(id)delegate
                     duration:(float)duration {
-	UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-	while (topController.presentedViewController) {
-		topController = topController.presentedViewController;
-	}
-	
-	UIView *parentView = topController.view;
-	
-	if(currentlyVisibleSnackbar) {
-		[currentlyVisibleSnackbar removeFromSuperview];
-		currentlyVisibleSnackbar			=	nil;
-		[dismissalTimer invalidate];
-	}
-	
-	selectionDelegate					=	delegate;
-	currentlyVisibleSnackbar				=	[[iSnackBar alloc] initWithFrame:CGRectZero];
-	currentlyVisibleSnackbar.translatesAutoresizingMaskIntoConstraints = NO;
-	
-	UILabel* mMessageLabel				=	[[UILabel alloc] init];
-	[mMessageLabel setNumberOfLines:0];
-	[mMessageLabel setText:message];
-	
-	UIButton* mActionButton				=	[[UIButton alloc] init];
-	[mActionButton setTitle:actionTitle forState:UIControlStateNormal];
-    if (actionTitleColor) {
-        [mActionButton setTitleColor:actionTitleColor forState:UIControlStateNormal];
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
     }
-	[mActionButton addTarget:self action:@selector(didSelectSnackBarActionButton:) forControlEvents:UIControlEventTouchUpInside];
-	
-	if(!bgColor) {
-		bgColor				=	[UIColor blackColor];
-	}
-	
-	if(!textColor) {
-		textColor			=	[UIColor whiteColor];
-	}
-	
-	if(!font) {
-		font				=	[UIFont systemFontOfSize:13.f];
-	}
-	
-	[currentlyVisibleSnackbar setBackgroundColor:bgColor];
-	[mMessageLabel setTextColor:textColor];
-	[mMessageLabel setFont:font];
+    
+    UIView *parentView = topController.view;
+    
+    if(currentlyVisibleSnackbar) {
+        [currentlyVisibleSnackbar removeFromSuperview];
+        currentlyVisibleSnackbar            =    nil;
+        [dismissalTimer invalidate];
+    }
+    
+    selectionDelegate                    =    delegate;
+    currentlyVisibleSnackbar                =    [[iSnackBar alloc] initWithFrame:CGRectZero];
+    currentlyVisibleSnackbar.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    UILabel* mMessageLabel                =    [[UILabel alloc] init];
+    [mMessageLabel setNumberOfLines:0];
+    [mMessageLabel setText:message];
+    
+    UIButton* mActionButton                =    [UIButton buttonWithType:UIButtonTypeCustom];
+    if (actionTitle) {
+        [mActionButton setTitle:actionTitle forState:UIControlStateNormal];
+        if (actionTitleColor) {
+            [mActionButton setTitleColor:actionTitleColor forState:UIControlStateNormal];
+        }
+        [mActionButton addTarget:self action:@selector(didSelectSnackBarActionButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    if(!bgColor) {
+        bgColor                =    [UIColor blackColor];
+    }
+    
+    if(!textColor) {
+        textColor            =    [UIColor whiteColor];
+    }
+    
+    if(!font) {
+        font                =    [UIFont systemFontOfSize:13.f];
+    }
+    
+    [currentlyVisibleSnackbar setBackgroundColor:bgColor];
+    [mMessageLabel setTextColor:textColor];
+    [mMessageLabel setFont:font];
     [mMessageLabel setTextAlignment:NSTextAlignmentRight];
-	[mActionButton.titleLabel setFont:font];
     
+    if (actionTitle) {
+        [mActionButton.titleLabel setFont:font];
+        [mActionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [mActionButton setTitleColor:[UIColor colorWithRed:255/255 green:255/255 blue:255/255 alpha:0.6] forState:UIControlStateHighlighted];
+        [mActionButton sizeToFit];
+        mActionButton.clipsToBounds = YES;
+        mActionButton.layer.cornerRadius = 5;
+    }
     
-	[mActionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[mActionButton setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
-	[mActionButton sizeToFit];
-	
-	[currentlyVisibleSnackbar addSubview:mMessageLabel];
-	[currentlyVisibleSnackbar addSubview:mActionButton];
-	[parentView addSubview:currentlyVisibleSnackbar];
-	
-	long buttonWidth = mActionButton.frame.size.width + 16;
-	[mActionButton setFrame:CGRectMake(8, 0, buttonWidth, mActionButton.frame.size.height)];
+    [currentlyVisibleSnackbar addSubview:mMessageLabel];
+    [currentlyVisibleSnackbar addSubview:mActionButton];
+    [parentView addSubview:currentlyVisibleSnackbar];
+    
+    long buttonWidth = 0;
+    
+    if (actionTitle) {
+        buttonWidth = mActionButton.frame.size.width + 16;
+        [mActionButton setFrame:CGRectMake(8, 0, buttonWidth, mActionButton.frame.size.height)];
+    }
+    
     
     CGFloat additionalHeight = 0;
     // ,, , , , , , , , , , , ,
@@ -180,44 +190,44 @@ static id selectionDelegate									=	nil;
     } else {
         additionalHeight = 20;
     }
-	
-	[currentlyVisibleSnackbar setFrame:CGRectMake(0, -(80+additionalHeight), parentView.frame.size.width, 80+additionalHeight)];
-	[mMessageLabel setFrame:CGRectMake(8, 28+additionalHeight, currentlyVisibleSnackbar.frame.size.width - 16, 0)];
-	[mMessageLabel sizeToFit];
-    [mMessageLabel setFrame:CGRectMake(currentlyVisibleSnackbar.frame.size.width - mMessageLabel.frame.size.width - 8, mMessageLabel.frame.origin.y, mMessageLabel.frame.size.width, mMessageLabel.frame.size.height)];
-	[currentlyVisibleSnackbar setFrame:CGRectMake(0, -80, parentView.frame.size.width, CGRectGetMaxY(mMessageLabel.frame) + 28+additionalHeight)];
-	
-	long actionButtonYPosition			=	(currentlyVisibleSnackbar.frame.size.height / 2) - (mActionButton.frame.size.height / 2);
-	[mActionButton setFrame:CGRectMake(mActionButton.frame.origin.x, actionButtonYPosition, buttonWidth, mActionButton.frame.size.height)];
-
-	[UIView animateWithDuration:0.3 animations:^{
-		[currentlyVisibleSnackbar setFrame:CGRectMake(0, 0, parentView.frame.size.width, CGRectGetMaxY(mMessageLabel.frame) + 8)];
-	}];
+    
+    [currentlyVisibleSnackbar setFrame:CGRectMake(0, -(80+additionalHeight), parentView.frame.size.width, 80+additionalHeight)];
+    [mMessageLabel setFrame:CGRectMake(8 + buttonWidth, 28+additionalHeight, currentlyVisibleSnackbar.frame.size.width - 16 - buttonWidth, 0)];
+    [mMessageLabel sizeToFit];
+    [mMessageLabel setFrame:CGRectMake(currentlyVisibleSnackbar.frame.size.width - mMessageLabel.frame.size.width - 8, mMessageLabel.frame.origin.y + 4, mMessageLabel.frame.size.width, mMessageLabel.frame.size.height)];
+    [currentlyVisibleSnackbar setFrame:CGRectMake(0, -80, parentView.frame.size.width, CGRectGetMaxY(mMessageLabel.frame) + 28+additionalHeight)];
+    
+    long actionButtonYPosition            =    (currentlyVisibleSnackbar.frame.size.height / 2) - (mActionButton.frame.size.height / 2);
+    [mActionButton setFrame:CGRectMake(mActionButton.frame.origin.x, actionButtonYPosition, buttonWidth, mActionButton.frame.size.height)];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [currentlyVisibleSnackbar setFrame:CGRectMake(0, 0, parentView.frame.size.width, CGRectGetMaxY(mMessageLabel.frame) + 16)];
+    }];
     
     int finalDuration = 2;
     
     switch ((int) duration) {
-        case 0:
-        finalDuration = 2.75;
-        break;
-        
-        case -1:
-        finalDuration = 1.5;
-        break;
-        
-        case -2:
-        finalDuration = 1000000;
-        break;
-        
+            case 0:
+            finalDuration = 2.75;
+            break;
+            
+            case -1:
+            finalDuration = 1.5;
+            break;
+            
+            case -2:
+            finalDuration = 1000000;
+            break;
+            
         default:
-        break;
+            break;
     }
-	
-	dismissalTimer = [NSTimer scheduledTimerWithTimeInterval:finalDuration
-													  target:self
-													selector:@selector(dismissSnackBar)
-													userInfo:nil
-													 repeats:NO];
+    
+    dismissalTimer = [NSTimer scheduledTimerWithTimeInterval:finalDuration
+                                                      target:self
+                                                    selector:@selector(dismissSnackBar)
+                                                    userInfo:nil
+                                                     repeats:NO];
 }
 
 + (void) dismissSnackBar {
